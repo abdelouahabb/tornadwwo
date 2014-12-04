@@ -5,7 +5,7 @@ Non-blocking API for World Weather Online.
 
 The official one is at https://github.com/WorldWeatherOnline/pywwo and kind of outdated.
 
-You need to use IPython or Spyder to use the commande line, or use it inside Tornado IOLoop (or you will have the `response` missing!), Check this [StackOverflow Answer](http://stackoverflow.com/questions/27284172/ipython-dont-execute-codes-like-python).
+You need to use IPython QT Console or Spyder to use the commande line, or use it inside Tornado IOLoop (or you will have the `response` missing!), Check this [StackOverflow Answer](http://stackoverflow.com/questions/27284172/ipython-dont-execute-codes-like-python).
 
 Usage
 =========
