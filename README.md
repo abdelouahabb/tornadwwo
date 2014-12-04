@@ -18,7 +18,7 @@ Since this is an alpha version, and needs lot of tweaks, the usage is really eas
 
 `from tornadwwo import wwo`
 
-`wwo.forecast('your free api key', 'Azazga') # Azazga is a town...`
+`wwo.forecast('your free api key', 'azazga') # Azazga is a town...`
  
 `result = wwo.response`
 
@@ -34,7 +34,7 @@ and this is how to run it directly from Tornado (without IPython QT or Spyder)
 
     class MainHandler(tornado.web.RequestHandler):
         def get(self):
-            wwo.forecast('fbc2018e72b20c6b979d118798f8e', q='azazga')
+            wwo.forecast('your free api key', q='azazga')
             self.write(str(wwo.response))
 
     application = tornado.web.Application([
