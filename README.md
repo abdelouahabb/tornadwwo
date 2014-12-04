@@ -18,7 +18,7 @@ Since this is an alpha version, and needs lot of tweaks, the usage is really eas
 
 `from tornadwwo import wwo`
 
-`wwo.forecast('1234566776554654', 'Azazga') # Azazga is a town...`
+`wwo.forecast('your free api key', 'Azazga') # Azazga is a town...`
  
 `result = wwo.response`
 
