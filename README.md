@@ -24,3 +24,23 @@ Since this is an alpha version, and needs lot of tweaks, the usage is really eas
 
 `# now, you work with result depending on which type you asked (json as default, xml, csv, tab)`
 
+and this is how to run it directly from Tornado (without IPython QT or Spyder)
+
+    # -*- coding: utf-8 -*-
+    import tornado.ioloop
+    import tornado.web
+    from tornadwwo import wwo
+
+
+    class MainHandler(tornado.web.RequestHandler):
+        def get(self):
+            wwo.forecast('fbc2018e72b20c6b979d118798f8e', q='azazga')
+            self.write(str(wwo.response))
+
+    application = tornado.web.Application([
+        (r"/", MainHandler),
+    ])
+
+    if __name__ == "__main__":
+        application.listen(8888)
+        tornado.ioloop.IOLoop.instance().start()
