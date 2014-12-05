@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup
 
 def readme():
     with open('README.rst') as f:
@@ -14,7 +14,8 @@ setup(name='tornadwwo',
       author='ALIANE Abdenour Abdelouahab',
       author_email='abdelouahab_al@yahoo.fr',
       url='https://github.com/abdelouahabb/tornadwwo',
-      packages=['distutils', 'distutils.command'],
+      packages=['tornadwwo'],
       install_requires=["tornado"],
+      setup_requires=["tornado"],
       license='MIT',
      )
