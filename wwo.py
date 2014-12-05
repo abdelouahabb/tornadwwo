@@ -24,8 +24,8 @@ def forecast(key, **kwargs):
     global api    
     for i, j in kwargs.iteritems():
         args.append('&{0}={1}'.format(i, j))
-    a = ''.join(args)
-    api = link+key+a
+    a = ''.join(set(args))
+    api = link + key + a
 
     def handle_request(resp):
         global response
