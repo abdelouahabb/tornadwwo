@@ -21,18 +21,33 @@ def forecast(key, **kwargs):
          hi,hu,it,ja,jv,ko,zh_cmn,mr,pl,pt,pa,ro,ru,sr,si,
          sk,es,sv,ta,te,tr,uk,ur,vi,zh_wuu,zh_hsn,zh_yue,zu]
     '''
-    global api    
-    for i, j in kwargs.iteritems():
-        args.append('&{0}={1}'.format(i, j))
-    a = ''.join(set(args))
-    api = link + key + a
+    global api
+    if len(key) != 29:
+        print 'invalid key'
+    else:
+        for i, j in kwargs.iteritems():
+            args.append('&{0}={1}'.format(i, j))
+        a = ''.join(set(args))
+        api = link + key + a
 
-    def handle_request(resp):
-        global response
-        if resp.error:
-            print "Error:", resp.error
-        else:
-            response = resp.body
+        def handle_request(resp):
+            global response
+            if resp.error:
+                print "Error:", resp.error
+            else:
+                response = resp.body
+
+        http_client.fetch(api, handle_request)
 
 
-    http_client.fetch(api, handle_request)
+def what_format():
+    if response.startswith('{'):
+        print 'JSON'
+    elif response.startswith('<'):
+        print 'XML'
+    elif response.startswith('#The TAB'):
+        print 'TAB'
+    elif response.startswith('#The CSV'):
+        print 'CSV'
+    else:
+        print 'Sorry, no valid response!'
