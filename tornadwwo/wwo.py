@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from tornado.httpclient import AsyncHTTPClient
-import ast
+import json
 
 http_client = AsyncHTTPClient()
 url = ''
@@ -46,7 +46,7 @@ def get_result():
     global result
     if response.startswith('{'):
         print 'the result is JSON, use wwo.result to see it'
-        result = ast.literal_eval(response)
+        result = json.loads(response)
     elif response.startswith('<'):
         print 'XML'
     elif response.startswith('#The TAB'):
