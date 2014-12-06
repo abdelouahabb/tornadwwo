@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from tornado.httpclient import AsyncHTTPClient
+import ast
 
 http_client = AsyncHTTPClient()
 url = ''
@@ -7,6 +8,7 @@ response = ''
 args = []
 link = 'http://api.worldweatheronline.com/free/v2/weather.ashx?key='
 api = ''
+result = {}
 
 
 def forecast(key, **kwargs):
@@ -40,9 +42,11 @@ def forecast(key, **kwargs):
         http_client.fetch(api, handle_request)
 
 
-def what_format():
+def get_result():
+    global result
     if response.startswith('{'):
-        print 'JSON'
+        print 'the result is JSON, use wwo.result to see it'
+        result = ast.literal_eval(response)
     elif response.startswith('<'):
         print 'XML'
     elif response.startswith('#The TAB'):
