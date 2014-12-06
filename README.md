@@ -20,9 +20,11 @@ Since this is an alpha version, and needs lot of tweaks, the usage is really eas
 
 `wwo.forecast('your free api key', 'azazga') # Azazga is a town...`
  
-`result = wwo.response`
+`response = wwo.response # this will return a raw result, if you want a formatted one:`
 
-`# now, you work with result depending on which type you asked (json as default, xml, csv, tab)`
+`formatted-result = wwo.get_result() # this will the type of result (json, xml, csv, tab)`
+
+`result = wwo.result `
 
 and this is how to run it directly from Tornado (without IPython QT or Spyder)
 
