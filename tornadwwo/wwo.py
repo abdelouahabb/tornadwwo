@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from tornado.httpclient import AsyncHTTPClient
-import ast
+import json
+import xml.etree.ElementTree as ET
+
 
 http_client = AsyncHTTPClient()
 url = ''
@@ -46,12 +48,20 @@ def get_result():
     global result
     if response.startswith('{'):
         print 'the result is JSON, use wwo.result to see it'
-        result = ast.literal_eval(response)
+        result = json.loads(response)
+
     elif response.startswith('<'):
-        print 'XML'
-    elif response.startswith('#The TAB'):
-        print 'TAB'
+        print 'the result is XML, parse the wwo.result to work on the nodes,'
+        print 'or, use wwo.response to see the raw result'
+        result = ET.fromstring(response)
+
     elif response.startswith('#The CSV'):
-        print 'CSV'
+        print 'the result is CSV, check wwo.result to see it'
+        result = response
+
+    elif response.startswith('#The TAB'):
+        print 'the result is in TAB format'
+        result = response
+
     else:
         print 'Sorry, no valid response!'
