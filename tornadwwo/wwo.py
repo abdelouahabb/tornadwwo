@@ -32,7 +32,7 @@ def forecast(key, **kwargs):
         for i, j in kwargs.iteritems():
             args.append('&{0}={1}'.format(i, j))
         a = ''.join(set(args))
-        api = link + key + a
+        api = link + key + a.replace(' ', '+')
 
         def handle_request(resp):
             global response
