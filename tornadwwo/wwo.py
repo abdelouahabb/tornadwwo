@@ -47,20 +47,20 @@ def forecast(key, **kwargs):
 def get_result():
     global result
     if response.startswith('{'):
-        print 'the result is JSON, use wwo.result to see it'
+        # the result is JSON, use wwo.result to see it
         result = json.loads(response)
 
     elif response.startswith('<'):
-        print 'the result is XML, parse the wwo.result to work on the nodes,'
-        print 'or, use wwo.response to see the raw result'
+        # the result is XML, parse the wwo.result to work on the nodes
+        # or, use wwo.response to see the raw result
         result = ET.fromstring(response)
 
     elif response.startswith('#The CSV'):
-        print 'the result is CSV, check wwo.result to see it'
+        # the result is CSV, check wwo.result to see it
         result = response
 
     elif response.startswith('#The TAB'):
-        print 'the result is in TAB format'
+        # the result is in TAB format
         result = response
 
     else:
