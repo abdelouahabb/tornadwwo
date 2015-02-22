@@ -46,3 +46,9 @@ and this is how to run it directly from Tornado (without IPython QT or Spyder)
     if __name__ == "__main__":
         application.listen(8888)
         tornado.ioloop.IOLoop.instance().start()
+
+**Note:
+
+If you get a blank response while you work on a project, think about blocking it with Tornado:
+
+`yield tornado.gen.Task(ioloop.IOLoop.instance().add_timeout, time.time() + 1)`
