@@ -18,11 +18,9 @@ Since this is an alpha version, and needs lot of tweaks, the usage is really eas
 
 `from tornadwwo import wwo`
 
-`wwo.forecast('your free api key', 'azazga') # Azazga is a town...`
- 
-`response = wwo.response # this will return a raw result, if you want a formatted one:`
+`wwo.request(q="azazga", key="your free api") # Azazga is a town...`
 
-`formatted-result = wwo.get_result() # this will the type of result (json, xml, csv, tab)`
+`print wwo.result # this will bring the type of result (json, xml, csv, tab... depending on your request)`
 
 `result = wwo.result `
 
@@ -36,8 +34,8 @@ and this is how to run it directly from Tornado (without IPython QT or Spyder)
 
     class MainHandler(tornado.web.RequestHandler):
         def get(self):
-            wwo.forecast('your free api key', q='azazga')
-            self.write(str(wwo.response))
+            wwo.request(q="azazga", key="your free api")
+            self.write(str(wwo.result))
 
     application = tornado.web.Application([
         (r"/", MainHandler),
