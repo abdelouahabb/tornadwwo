@@ -20,9 +20,7 @@ Since this is an alpha version, and needs lot of tweaks, the usage is really eas
 
 `wwo.request(q="azazga", key="your free api") # Azazga is a town...`
 
-`print wwo.result # this will bring the type of result (json, xml, csv, tab... depending on your request)`
-
-`result = wwo.result `
+`print wwo.result # this will bring the result (json, xml, csv, tab... depending on your request)`
 
 and this is how to run it directly from Tornado (without IPython QT or Spyder)
 
