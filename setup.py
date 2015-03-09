@@ -8,7 +8,7 @@ def readme():
 
 
 setup(name='tornadwwo',
-      version='0.1.2',
+      version='0.1.3',
       description='Async API calls for World Weather Online',
       keywords='tornado weather non-blocking api http',
       author='ALIANE Abdenour Abdelouahab',
