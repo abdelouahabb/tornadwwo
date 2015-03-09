@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
+from tornado.httputil import url_concat
 from tornado.httpclient import AsyncHTTPClient
-import json
-import xml.etree.ElementTree as ET
-
+from json import loads
+from xml.etree.ElementTree import fromstring
 
 http_client = AsyncHTTPClient()
-url = ''
-response = ''
-args = []
-link = 'http://api.worldweatheronline.com/free/v2/weather.ashx?key='
-api = ''
-result = {}
+url = "http://api.worldweatheronline.com/free/v2/weather.ashx?"
+api = ""
+result = ""
 
 
-def forecast(key, **kwargs):
-    '''forecast(your_api_key, q=q, optional_arguments)
+def request(**kwargs):
+    '''
+    forecast(key="your api key", arguments)
     q = US Zipcode, UK Postcode, Canada Postcode, IP, Lat/Long, city name;
     optional args https://developer.worldweatheronline.com/page/explorer-free:
     format=[json, xml, csv, tab]; extra=[localObsTime, isDayTime, utcDateTime];
@@ -26,42 +24,33 @@ def forecast(key, **kwargs):
          sk,es,sv,ta,te,tr,uk,ur,vi,zh_wuu,zh_hsn,zh_yue,zu]
     '''
     global api
-    if len(key) != 29:
-        print 'invalid key'
-    else:
-        for i, j in kwargs.iteritems():
-            args.append('&{0}={1}'.format(i, j))
-        a = ''.join(set(args))
-        api = link + key + a.replace(' ', '+')
-
-        def handle_request(resp):
-            global response
-            if resp.error:
-                print "Error:", resp.error
-            else:
-                response = resp.body
-
-        http_client.fetch(api, handle_request)
+    api = url_concat(url, kwargs)
+    http_client.fetch(api, handle_request)
 
 
-def get_result():
+def handle_request(response):
     global result
-    if response.startswith('{'):
-        # the result is JSON, use wwo.result to see it
-        result = json.loads(response)
-
-    elif response.startswith('<'):
-        # the result is XML, parse the wwo.result to work on the nodes
-        # or, use wwo.response to see the raw result
-        result = ET.fromstring(response)
-
-    elif response.startswith('#The CSV'):
-        # the result is CSV, check wwo.result to see it
-        result = response
-
-    elif response.startswith('#The TAB'):
-        # the result is in TAB format
-        result = response
-
+    if response.error:
+        result = response.code
     else:
-        print 'Sorry, no valid response!'
+        if response.body.startswith('{'):
+            # the result is JSON, use wwo.result to see it
+            result = loads(response.body)
+
+        elif response.body.startswith('<'):
+            # the result is XML, parse the wwo.result to work on the nodes
+            # or, use wwo.response to see the raw result
+            result = fromstring(response.body)
+    
+        elif response.body.startswith('#The CSV'):
+            # the result is CSV, check wwo.result to see it
+            result = response.body
+    
+        elif response.body.startswith('#The TAB'):
+            # the result is in TAB format
+            result = response.body
+    
+        else:
+            print 'Sorry, no valid response!'
+
+        
